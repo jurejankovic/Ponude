@@ -1,0 +1,88 @@
+﻿@using Ponude.Api.Models;
+@{
+    ViewData["Title"] = "Editor Ponude";
+}
+<h2>Broj ponude: ... </h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Stavka</th>
+            <th>?</th>
+            <th>Izmjena</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var offer in Model)
+        {
+            <tr>
+                <td>@offer.Id</td>
+                <td>@offer.Date.ToShortDateString()</td>
+                <td>
+                    <a class="button" href="@Url.Action("Edit", new { id = offer.Id })">Izmijeni ponudu</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="text-center">
+    <a class="btn btn-primary" id="addItemBtn">Nova stavka</a>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#addItemBtn").click(function () {
+                var newRow = `<tr>
+                                <td><select class="select2" style="width:100%"></select></td>
+                                <td><input type="number" class="unitPrice" /></td>
+                                <td><input type="number" class="quantity" /></td>
+                                <td class="totalPrice"></td>
+                                <td><button class="deleteItemBtn">Obriši</button></td>
+                              </tr>`;
+                $('#offerItemsTable tbody').append(newRow);
+                initializeSelect2();
+            });
+
+            $(document).on('click', '.deleteItemBtn', function () {
+                $(this).closest('tr').remove();
+            });
+
+            $(document).on('input', '.unitPrice, .quantity', function () {
+                var row = $(this).closest('tr');
+                var unitPrice = parseFloat(row.find('.unitPrice').val()) || 0;
+                var quantity = parseInt(row.find('.quantity').val()) || 0;
+                row.find('.totalPrice').text((unitPrice * quantity).toFixed(2));
+                updateTotalAmount();
+            });
+
+            function initializeSelect2() {
+                $('.select2').select2({
+                    placeholder: 'Odaberite artikl',
+                    ajax: {
+                        url: '/api/products', // API za dohvat artikala
+                        dataType: 'json',
+                        processResults: function (data) {
+                            return {
+                                results: data.map(function (item) {
+                                    return { id: item.id, text: item.name };
+                                })
+                            };
+                        }
+                    }
+                });
+            }
+
+            function updateTotalAmount() {
+                var totalAmount = 0;
+                $('#offerItemsTable .totalPrice').each(function () {
+                    totalAmount += parseFloat($(this).text()) || 0;
+                });
+                $('#totalAmount').text(totalAmount.toFixed(2));
+            }
+        });
+
+    </script>
+}

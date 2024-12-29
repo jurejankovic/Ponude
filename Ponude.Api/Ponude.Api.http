@@ -1,0 +1,6 @@
+@Ponude.Api_HostAddress = http://localhost:5178
+
+GET {{Ponude.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

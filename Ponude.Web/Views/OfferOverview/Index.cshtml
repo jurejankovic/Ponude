@@ -1,0 +1,32 @@
+﻿@using Ponude.Api.Models;
+@model List<Offer>
+@{
+    ViewData["Title"] = "Pregled Ponuda";
+}
+<h2>Ponude</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Broj ponude</th>
+            <th>Datum ponude</th>
+            <th>Izmjena</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var offer in Model)
+        {
+            <tr>
+                <td>@offer.Id</td>
+                <td>@offer.Date.ToShortDateString()</td>
+                <td>
+                    <a class="button" href="@Url.Action("Edit","OfferEditor", new { id = offer.Id })">Izmijeni ponudu</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a class="btn btn-primary" href="@Url.Action("Entry", "OfferEditor")">Nova ponuda</a>
+</div>
