@@ -8,7 +8,8 @@
 <table class="table" id="offerItemsTable">
     <thead>
         <tr>
-            <th>Stavka</th>
+            <th>Stavka br.</th>
+            <th>Artikl</th>
             <th>Cijena</th>
             <th>Količina</th>
             <th>Ukupna cijena</th>
@@ -61,7 +62,7 @@
                                 <td>${itemNumber}</td>
                                 <td><select class="select2" style="width:100%"></select></td>
                                 <td><input type="number" class="unitPrice" /></td>
-                                <td><input type="number" class="quantity" /></td>
+                                <td><input type="number" class="quantity" step="1" /></td>
                                 <td class="totalPrice">0.00</td>
                                 <td><button class="deleteItemBtn">Obriši</button></td>
                               </tr>`;
@@ -112,6 +113,17 @@
                 });
                 $('#totalAmount').text(totalAmount.toFixed(2));
             }
+
+            function addQuantityValidation() {
+                $(document).on('keydown', '.quantity', function (e) {
+                    var key = e.key;
+                    if (key === '.' || key === 'e') {
+                        e.preventDefault();
+                    }
+                });
+            }
+
+            addQuantityValidation();
         });
     </script>
 }

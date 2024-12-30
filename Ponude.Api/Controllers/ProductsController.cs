@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Ponude.Api.Data;
@@ -17,6 +18,7 @@ namespace Ponude.Api.Controllers
         }
 
         [HttpGet]
+        [EnableCors("AllowSpecificOrigin")]
         public async Task<IActionResult> GetProductsPaged([FromQuery] int page = 1, [FromQuery] int pageSize = 6, [FromQuery] string search = "")
         {
             var query = _context.Products.AsQueryable();
