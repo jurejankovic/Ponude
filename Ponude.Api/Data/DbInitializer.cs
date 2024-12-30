@@ -35,9 +35,9 @@ namespace Ponude.Api.Data
             // Seed OfferItems (Stavke) with correct OfferId references
             var offerItems = new[]
             {
-            new OfferItem { Article = "Item 1", Quantity = 2, Price = 100.00m, OfferId = offers[0].Id },
-            new OfferItem { Article = "Item 2", Quantity = 1, Price = 50.00m, OfferId = offers[1].Id },
-            new OfferItem { Article = "Item 3", Quantity = 5, Price = 30.00m, OfferId = offers[1].Id }
+            new OfferItem { Product = "Item 1", Quantity = 2, Price = 100.00m, OfferId = offers[0].Id },
+            new OfferItem { Product = "Item 2", Quantity = 1, Price = 50.00m, OfferId = offers[1].Id },
+            new OfferItem { Product = "Item 3", Quantity = 5, Price = 30.00m, OfferId = offers[1].Id }
         };
             context.OfferItems.AddRange(offerItems);
 
