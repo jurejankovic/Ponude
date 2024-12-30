@@ -6,13 +6,11 @@ namespace Ponude.Api.Data
     {
         public static void Initialize(PonudeDbContext context)
         {
-            // Ensure the database is created
             context.Database.EnsureCreated();
 
-            // Check if there are already items in the database
             if (context.Products.Any() && context.Offers.Any() && context.OfferItems.Any())
             {
-                return; // Database has already been seeded
+                return;
             }
 
             // mock products

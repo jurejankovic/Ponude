@@ -16,7 +16,7 @@ namespace Ponude.Api.Controllers
             _context = context;
         }
 
-        [HttpGet("GetProductsPaged")]
+        [HttpGet]
         public async Task<IActionResult> GetProductsPaged([FromQuery] int page = 1, [FromQuery] int pageSize = 6, [FromQuery] string search = "")
         {
             var query = _context.Products.AsQueryable();
